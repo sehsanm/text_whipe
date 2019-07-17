@@ -84,7 +84,11 @@ if __name__ == "__main__":
         'ganjoor' : {'url' : 'https://ganjoor.net/' , 'count': 1000, 'restriction' : 'https://ganjoor.net/'},
         'bbc' : {'url' : 'https://www.bbc.com/persian' , 'count': 1000, 'restriction' : 'www.bbc.com/persian'}
     }
+    threads = []
     for s in sites:
-        threading.Thread(target=thread_run, args=(s, sites[s]['url'], sites[s]['restriction'], sites[s]['count'])).start()
-
+        t = threading.Thread(target=thread_run, args=(s, sites[s]['url'], sites[s]['restriction'], sites[s]['count']))
+        t.start()
+        threads.append(t)
+    for t in threads:
+        t.join()
     crop_files('./data', 1500 , 3000)
