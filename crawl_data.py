@@ -67,6 +67,7 @@ def crop_files(input_folder):
 
 def thread_run(site_id, base_url, restricted_domain,  count):
     driver = webdriver.PhantomJS()
+    driver.set_window_size(1500 , 3000)
     crwal_website(driver, base_url, site_id, restricted_domain, count)
     driver.quit()
 
