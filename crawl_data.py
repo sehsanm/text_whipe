@@ -52,7 +52,7 @@ def unify_sizes(input_folder, files, width, height, from_right=True):
             cropped = image.crop((image.size[0] - width, 0, image.size[0], height))
         else:
             cropped = image.crop(0, 0 , width , height)
-        cropped.save(input_folder + '/croppped_' + f)
+        cropped.save(input_folder + '/cropped_' + f)
 
 
 def crop_files(input_folder, width, height):
