@@ -55,14 +55,14 @@ def unify_sizes(input_folder, files, width, height, from_right=True):
         cropped.save(input_folder + '/croppped_' + f)
 
 
-def crop_files(input_folder):
+def crop_files(input_folder, width, height):
     files = []
     # r=root, d=directories, f = files
     for r, d, f in os.walk(input_folder):
         for file in f:
             if '.png' in file:
                 files.append(file)
-    unify_sizes(input_folder, files, 2074, 1444)
+    unify_sizes(input_folder, files, width, height)
 
 
 def thread_run(site_id, base_url, restricted_domain,  count):
@@ -78,11 +78,13 @@ if __name__ == "__main__":
     # crwal_website(driver, 'https://fa.wikipedia.org', 'wiki', 1000)
     #
     sites = {
-        'wiki': {'url': 'https://fa.wikipedia.org' , 'count': 5 , 'restriction' : 'https://fa.wikipedia.org'},
-        'blogfa' : {'url' : 'http://blogfa.com' , 'count' : 5, 'restriction' : 'blogfa.com'},
-        'irna' : {'url' : 'https://www.irna.ir/' , 'count' : 5, 'restriction' : 'https://www.irna.ir/'},
-        'ganjoor' : {'url' : 'https://ganjoor.net/' , 'count' : 5, 'restriction' : 'https://ganjoor.net/'},
-        'bbc' : {'url' : 'https://www.bbc.com/persian' , 'count' : 5, 'restriction' : 'www.bbc.com/persian'}
+        'wiki': {'url': 'https://fa.wikipedia.org' , 'count': 1000 , 'restriction' : 'https://fa.wikipedia.org'},
+        'blogfa' : {'url' : 'http://blogfa.com' , 'count': 1000, 'restriction' : 'blogfa.com'},
+        'irna' : {'url' : 'https://www.irna.ir/' , 'count': 1000, 'restriction' : 'https://www.irna.ir/'},
+        'ganjoor' : {'url' : 'https://ganjoor.net/' , 'count': 1000, 'restriction' : 'https://ganjoor.net/'},
+        'bbc' : {'url' : 'https://www.bbc.com/persian' , 'count': 1000, 'restriction' : 'www.bbc.com/persian'}
     }
     for s in sites:
         threading.Thread(target=thread_run, args=(s, sites[s]['url'], sites[s]['restriction'], sites[s]['count'])).start()
+
+    crop_files('./data', 1500 , 3000)
